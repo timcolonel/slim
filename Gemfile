@@ -22,6 +22,14 @@ if ENV['RAILS']
   else
     gem 'rails', "= #{ENV['RAILS']}"
   end
+
+
+end
+#Check if we are using rails >= 4.1 or master
+if ENV['RAILS'] && (ENV['RAILS'] == 'master' || ENV['RAILS'].match(/4\.([1-9])(\..*)?/))
+  gem 'minitest', '~> 5.1'
+else
+  gem 'minitest', '~> 4.7.4'
 end
 
 if ENV['SINATRA']
@@ -40,7 +48,6 @@ gem 'creole'
 gem 'builder'
 gem 'asciidoctor'
 gem 'org-ruby'
-gem 'minitest', '~> 4.7.4'
 
 if ENV['TASK'] == 'bench'
   gem 'erubis'

@@ -46,7 +46,7 @@ class TestSlim < ActionDispatch::IntegrationTest
     assert_html "<h1>Hello Slim!</h1><p>With a partial!</p>"
   end
 
-  if ::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR >= 1 && Object.const_defined?(:Fiber)
+  if ::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR >= 1 && Object.const_defined?(:Fiber) && RUBY_PLATFORM != 'java'
     puts 'Streaming test enabled'
     test "streaming" do
       get "slim/streaming"
