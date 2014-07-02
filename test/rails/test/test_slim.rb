@@ -46,16 +46,17 @@ class TestSlim < ActionDispatch::IntegrationTest
     assert_html "<h1>Hello Slim!</h1><p>With a partial!</p>"
   end
 
-  #if ::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR >= 1 && Object.const_defined?(:Fiber) && RUBY_PLATFORM != 'java'
+  #Disable streaming testing for rails 3.x and on jruby
+  if ::Rails::VERSION::MAJOR > 3 and RUBY_PLATFORM != 'java'
     puts 'Streaming test enabled'
     test "streaming" do
       get "slim/streaming"
       output = "2f\r\n<!DOCTYPE html><html><head><title>Dummy</title>\r\nd\r\n</head><body>\r\n17\r\nHeading set from a view\r\n15\r\n<div class=\"content\">\r\n53\r\n<p>Page content</p><h1><p>Hello Streaming!</p></h1><h2><p>Hello Streaming!</p></h2>\r\n14\r\n</div></body></html>\r\n0\r\n\r\n"
       assert_equal output, @response.body
     end
-  # else
-  #   puts 'Streaming test disabled'
-  # end
+  else
+    puts 'Streaming test disabled'
+  end
 
   test "render integers" do
     get "slim/integers"
