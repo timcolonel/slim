@@ -26,8 +26,8 @@ if ENV['RAILS']
 
 end
 
-#Choose minitest 4.7.x for sinatra or rails 3 otherwise go for newer version
-if ENV['SINATRA'] || (ENV['RAILS'] &&  ENV['RAILS'].match(/3\.([1-9])(\..*)?/))
+#Choose minitest 4.7.x for sinatra or rails 3 and 4.0 otherwise go for newer version
+if ENV['SINATRA'] || (ENV['RAILS'] && !ENV['RAILS'].match(/4\.([1-9])(\..*)?/))
   gem 'minitest', '~> 4.7.4'
 else
   gem 'minitest', '~> 5.1'
