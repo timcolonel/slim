@@ -47,7 +47,9 @@ class TestSlim < ActionDispatch::IntegrationTest
   end
 
   #Disable streaming testing for rails 3.x and on jruby
-  if ::Rails::VERSION::MAJOR >= 4 and RUBY_PLATFORM != 'java'
+  if (::Rails::VERSION::MAJOR >= 4 ||
+      (::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR >= 1 &&  Object.const_defined?(:Fiber))) &&
+          RUBY_PLATFORM != 'java'
     puts 'Streaming test enabled'
     test "streaming" do
       get "slim/streaming"
